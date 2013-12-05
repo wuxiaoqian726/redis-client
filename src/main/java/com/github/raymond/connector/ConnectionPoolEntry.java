@@ -3,5 +3,5 @@ package com.github.raymond.connector;
 /**
  * @author Raymond
  */
-public class ConnectionPool {
+public class ConnectionPoolEntry {
 }
