@@ -1,0 +1,5 @@
+TODO:if the connection pool manager has been shutdown,how to handle the thread that block by the Semaphore?
+TODO:refine the connection pool manager, change to create new connection when we need,instead of initialize the connection at the beginning,
+TODO:add the connection exception,check exception or unchecked exception?
+TODO:implement the ProtocolParser,using groovy or closure dsl parser?
+TODO:using the nio connector?

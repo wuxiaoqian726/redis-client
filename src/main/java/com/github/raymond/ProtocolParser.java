@@ -8,7 +8,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ProtocolParser {
 
-    public String parse(String command) {
+    public String parseCommand(String command) {
         return StringUtils.EMPTY;
     }
+
+    public String parseResponse(String response) {
+        return StringUtils.EMPTY;
+    }
+
 }

@@ -12,17 +12,17 @@ public class CommandBuilder {
         return builder.toString();
     }
 
-    public CommandBuilder command(String command) {
+    public CommandBuilder withCommand(String command) {
         builder.append(command).append(SPACE);
         return this;
     }
 
-    public CommandBuilder key(String key) {
+    public CommandBuilder withKey(String key) {
         builder.append(key).append(SPACE);
         return this;
     }
 
-    public CommandBuilder value(String value) {
+    public CommandBuilder withValue(String value) {
         return this;
     }
 }
