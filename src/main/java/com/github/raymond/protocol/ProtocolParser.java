@@ -1,4 +1,4 @@
-package com.github.raymond;
+package com.github.raymond.protocol;
 
 
 import org.apache.commons.lang3.StringUtils;
