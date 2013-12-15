@@ -3,5 +3,9 @@ package com.github.raymond.exception;
 /**
  * @author raymond
  */
-public class RedisServerException {
+public class RedisServerException extends RuntimeException {
+
+    public RedisServerException(String message) {
+        super(message);
+    }
 }

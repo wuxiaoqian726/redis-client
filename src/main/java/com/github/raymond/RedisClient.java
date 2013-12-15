@@ -1,6 +1,7 @@
 package com.github.raymond;
 
 import com.github.raymond.connector.PoolConnectionManager;
+import com.github.raymond.protocol.ProtocolParser;
 
 import java.net.InetSocketAddress;
 
@@ -24,8 +25,8 @@ public class RedisClient {
         commandExecutor.execute(commandBuilder.withCommand("set").withKey(key).withValue(value).build());
     }
 
-    public void get(String key) {
-
+    public String get(String key) {
+        return "";
     }
 
     public void shutdown() {

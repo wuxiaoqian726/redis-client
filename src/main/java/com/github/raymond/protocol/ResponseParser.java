@@ -1,7 +1,8 @@
 package com.github.raymond.protocol;
 
 /**
- * @author chi
+ * @author Raymond
  */
-public class ResponseParser {
+public interface ResponseParser<T> {
+    T parse(String response);
 }

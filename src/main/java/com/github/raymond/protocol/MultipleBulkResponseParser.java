@@ -1,7 +1,14 @@
 package com.github.raymond.protocol;
 
+import java.util.List;
+
 /**
- * @author chi
+ * @author Raymond
  */
-public class MultipleBulkResponseParser {
+public class MultipleBulkResponseParser implements ResponseParser<List<String>> {
+
+    @Override
+    public List<String> parse(String response) {
+        return null;
+    }
 }

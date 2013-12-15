@@ -1,7 +1,13 @@
 package com.github.raymond.protocol;
 
 /**
- * @author chi
+ * @author Raymond
  */
-public class NumberResponseParser {
+public class NumberResponseParser implements ResponseParser<Long> {
+
+    /*:1000\r\n*/
+    @Override
+    public Long parse(String response) {
+        return null;
+    }
 }
