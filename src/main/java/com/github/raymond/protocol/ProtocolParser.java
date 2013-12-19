@@ -1,6 +1,7 @@
 package com.github.raymond.protocol;
 
 
+import com.github.raymond.exception.RedisClientException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.Map;
  */
 public class ProtocolParser {
 
+    private static final String CRLF = "\r\n";
     private static final Map<Character, ResponseParser<?>> RESPONSE_PARSER_MAP = new HashMap<Character, ResponseParser<?>>() {
         {
             put('+', new SuccessStatusResponseParser());
@@ -23,7 +25,16 @@ public class ProtocolParser {
     };
 
     public String parseCommand(String command) {
-        return StringUtils.EMPTY;
+        if (StringUtils.isBlank(command)) throw new RedisClientException("empty command");
+
+        String[] tokens = command.split(" ");
+        StringBuilder builder = new StringBuilder();
+        builder.append("*").append(tokens.length).append(CRLF);
+        for (String token : tokens) {
+            builder.append("$").append(token.length()).append(CRLF);
+            builder.append(token).append(CRLF);
+        }
+        return builder.toString();
     }
 
     public Object parseResponse(String response) {
