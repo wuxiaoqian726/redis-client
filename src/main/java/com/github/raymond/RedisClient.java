@@ -3,8 +3,6 @@ package com.github.raymond;
 import com.github.raymond.connector.PoolConnectionManager;
 import com.github.raymond.protocol.ProtocolParser;
 
-import java.net.InetSocketAddress;
-
 /**
  * @author raymond
  */
@@ -16,7 +14,7 @@ public class RedisClient {
 
     public RedisClient(String host, int port) {
         this.commandExecutor = new CommandExecutor();
-        this.poolConnectionManager = new PoolConnectionManager(new InetSocketAddress(host, port), configuration);
+        this.poolConnectionManager = new PoolConnectionManager(host, port, configuration);
         this.commandExecutor.setPoolConnectionManager(poolConnectionManager);
         this.commandExecutor.setProtocolParser(new ProtocolParser());
     }

@@ -2,7 +2,6 @@ package com.github.raymond.connector;
 
 import com.github.raymond.Configuration;
 
-import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -16,15 +15,16 @@ public class PoolConnectionManager {
     private final Semaphore semaphore;
     private volatile boolean shutdown = false;
 
-    public PoolConnectionManager(InetSocketAddress inetSocketAddress, Configuration configuration) {
+
+    public PoolConnectionManager(String host, int port, Configuration configuration) {
         semaphore = new Semaphore(configuration.getSocketConnections(), true);
         connections = new ArrayList<Connection>(configuration.getSocketConnections());
-        initializeConnection(inetSocketAddress, configuration);
+        initializeConnection(host, port, configuration);
     }
 
-    private void initializeConnection(InetSocketAddress inetSocketAddress, Configuration configuration) {
+    private void initializeConnection(String host, int port, Configuration configuration) {
         for (int i = 0; i < configuration.getSocketConnections(); i++) {
-            connections.add(new Connection(inetSocketAddress, configuration.getSocketTimeout()));
+            connections.add(new Connection(host, port, configuration.getSocketTimeout()));
         }
     }
 

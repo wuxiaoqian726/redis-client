@@ -25,6 +25,13 @@ public final class IOUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(IOUtils.class);
     private static final int BUFFER_SIZE = 4096;
 
+    private IOUtils() {
+    }
+
+    public static void write(File file, String content) {
+        write(file, content.getBytes(Charset.defaultCharset()));
+    }
+
     public static void write(File file, byte[] bytes) {
         BufferedOutputStream stream = null;
         try {
@@ -37,8 +44,15 @@ public final class IOUtils {
         }
     }
 
-    public static void write(File file, String content) {
-        write(file, content.getBytes(Charset.defaultCharset()));
+    public static void close(OutputStream stream) {
+        try {
+            if (stream != null) {
+                stream.flush();
+                stream.close();
+            }
+        } catch (IOException e) {
+            LOGGER.info(e.getMessage(), e);
+        }
     }
 
     public static String text(Reader reader) {
@@ -63,6 +77,14 @@ public final class IOUtils {
         }
     }
 
+    public static void close(Reader reader) {
+        try {
+            if (reader != null) reader.close();
+        } catch (IOException e) {
+            LOGGER.info(e.getMessage(), e);
+        }
+    }
+
     public static String text(File file) {
         InputStream stream = null;
         try {
@@ -75,19 +97,11 @@ public final class IOUtils {
         }
     }
 
-    public static String text(InputStream stream) {
-        return new String(bytes(stream), Charset.defaultCharset());
-    }
-
-    public static byte[] bytes(File file) {
-        InputStream stream = null;
+    public static void close(InputStream stream) {
         try {
-            stream = new BufferedInputStream(new FileInputStream(file));
-            return bytes(stream);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeIOException(e);
-        } finally {
-            IOUtils.close(stream);
+            if (stream != null) stream.close();
+        } catch (IOException e) {
+            LOGGER.info(e.getMessage(), e);
         }
     }
 
@@ -109,30 +123,19 @@ public final class IOUtils {
         return byteArrayOutputStream.toByteArray();
     }
 
-    public static void close(InputStream stream) {
-        try {
-            if (stream != null) stream.close();
-        } catch (IOException e) {
-            LOGGER.info(e.getMessage(), e);
-        }
+    public static String text(InputStream stream) {
+        return new String(bytes(stream), Charset.defaultCharset());
     }
 
-    public static void close(OutputStream stream) {
+    public static byte[] bytes(File file) {
+        InputStream stream = null;
         try {
-            if (stream != null) {
-                stream.flush();
-                stream.close();
-            }
-        } catch (IOException e) {
-            LOGGER.info(e.getMessage(), e);
-        }
-    }
-
-    public static void close(Reader reader) {
-        try {
-            if (reader != null) reader.close();
-        } catch (IOException e) {
-            LOGGER.info(e.getMessage(), e);
+            stream = new BufferedInputStream(new FileInputStream(file));
+            return bytes(stream);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeIOException(e);
+        } finally {
+            IOUtils.close(stream);
         }
     }
 
@@ -192,8 +195,5 @@ public final class IOUtils {
             close(input);
             close(output);
         }
-    }
-
-    private IOUtils() {
     }
 }
